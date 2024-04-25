@@ -1,4 +1,4 @@
-# React + Websocket App
+# React + Websocket App v1.1.0
 
 a chat app with *frontend in react* and *backend web websockets*
 
