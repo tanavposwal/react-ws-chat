@@ -5,3 +5,17 @@
 :root {
   color-scheme: dark;
 }
+
+.msg{
+  animation: pop 0.1s linear;
+  transform-origin: left;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0) translateY(-100px);
+  }
+  to {
+    transform: scale(1) translateY(0);
+  }
+}

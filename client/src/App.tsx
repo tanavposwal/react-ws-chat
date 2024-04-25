@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Chat from "../components/Chat";
 import useWebSocket from "react-use-websocket";
-import Allusers from "../components/Allusers";
+import Sidebar from "../components/Sidebar"
 
 function App() {
   const [log, setLog] = useState(false);
@@ -13,6 +13,10 @@ function App() {
     {
       onOpen: () => {
         console.log("WebSocket connection established.");
+        setReady(true)
+      },
+      onClose() {
+        setReady(false)
       },
     }
   );
@@ -27,32 +31,20 @@ function App() {
         username: localStorage.getItem("name"),
       },
     });
-    setReady(true);
   }
 
   return (
     <>
       {log ? (
-        <div className="flex justify-center items-center h-full gap-2">
-          <div className="border-2 border-white/10 rounded-lg shadow-lg p-4 h-[90vh] w-60">
-            <div className="flex items-center text-2xl justify-center font-bold mb-4">
-              <span
-                className={
-                  "w-2 h-2 rounded-full animate-ping mr-3 " +
-                  (ready ? "bg-green-600" : "bg-red-600")
-                }
-              ></span>
-              <p className="opacity-50  italic">
-                #{room}
-              </p>
-            </div>
-            <Allusers />
+        <div className="flex justify-center items-center h-full">
+          <div className="border-2 border-white/10 rounded-l-lg shadow-lg p-4 h-[90vh] w-64">
+            <Sidebar ready={ready} room={room} />
           </div>
-          <div className="bg-white/10 rounded-lg shadow-lg p-4 h-[90vh] w-96">
+          <div className="bg-white/10 rounded-r-lg shadow-lg p-4 h-[90vh] w-96">
             <h1 className="flex text-2xl font-bold mb-4">
               Chat App{" "}
               <p className="ml-2 opacity-40 text-md">
-                ({localStorage.getItem("name")})
+                {localStorage.getItem("name")}
               </p>
             </h1>
             <Chat send={sendJsonMessage} msg={lastJsonMessage} />

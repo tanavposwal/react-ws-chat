@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
-const ChatInput = ({ onSendMessage }: { onSendMessage: (message: string) => void; }) => {
+const ChatInput = ({ onSendMessage, onTyping }: { onSendMessage: (message: string) => void; onTyping: (message: string) => void; }) => {
   const [message, setMessage] = useState('');
 
   const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
+    onTyping(e.target.value);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    onTyping("");
     if (message.trim() !== '') {
       onSendMessage(message.trim());
       setMessage('');

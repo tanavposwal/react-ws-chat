@@ -74,6 +74,26 @@ wss.on("connection", async (ws, req) => {
                 }
             })
         }
+
+        if (data.type === "typing") {
+            const username = data.payload.username;
+            const roomId = users["#WS-"+data.payload.username!].room;
+            const message = data.payload.message;
+
+            // send this message to all
+            Object.keys(users).forEach((wsId) => {
+                if (users[wsId].room == roomId) {
+                    users[wsId].ws.send(JSON.stringify({
+                        type: "typing",
+                        payload: {
+                            message,
+                            username
+                        }
+                    }));
+                }
+            })
+        }
+
     });
 
     ws.on("close", () => {

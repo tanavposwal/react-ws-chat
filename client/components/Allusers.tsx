@@ -6,11 +6,7 @@ const Allusers = () => {
 
   return (
     <div>
-      <h2 className="text-lg font-semibold">Users</h2>
-
-      <ul className="mt-4 ml-4 list-decimal">
-        // TODO: not started
-        this is not working
+      <ul className="ml-6 text-white/50 list-decimal">
         {list.map(name => (
           <li>{name}</li>
         ))}
